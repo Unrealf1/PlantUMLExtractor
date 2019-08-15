@@ -12,8 +12,10 @@
 namespace PUMLE {
     class Writer {
     public:
-        Writer(const std::string& filename);
+        explicit Writer(const std::string& filename);
         void Write(const ClassSource& classSource);
+        void Begin();
+        void End();
         static std::string ComposeFileName(const std::string& initialName);
     private:
         std::ofstream ofstr;
