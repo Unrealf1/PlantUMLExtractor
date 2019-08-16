@@ -165,6 +165,9 @@ namespace PUMLE {
                     current_state = search_state::normal;
                     break;
                 }
+                default: {
+                    throw UnreachableCode();
+                }
             }
         }
 
