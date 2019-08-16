@@ -8,8 +8,13 @@
 #include <vector>
 
 namespace PUMLE {
+    enum class ClassType {
+        None, Class, Object, Enum
+    };
+
     class ClassSource {
     public:
+        ClassType type;
         std::string classname;
         std::vector<std::string> public_functions;
         std::vector<std::string> private_functions;

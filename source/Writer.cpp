@@ -9,9 +9,31 @@ namespace PUMLE {
     :ofstr(filename) {
 
     }
+
+    void Writer::Begin(){
+        ofstr << "@startuml\n";
+    }
+
+    void Writer::End(){
+        ofstr << "@enduml\n";
+        ofstr << std::flush;
+    }
+
     void Writer::Write(const ClassSource& classSource) {
-        ofstr << "@startuml\n"
-        << "class " << classSource.classname << " {\n";
+        if (classSource.type == ClassType::Enum) {
+            ofstr << "enum " << classSource.classname << " {\n";
+            for (auto& member : classSource.public_members) {
+                ofstr << member << '\n';
+            }
+            ofstr << "}\n";
+            return;
+        } else if(classSource.type == ClassType::Class) {
+            ofstr << "class " << classSource.classname << " {\n";
+        } else if (classSource.type == ClassType::Object) {
+            ofstr << "class " << classSource.classname << "<< (O, white) >>" << " {\n";
+        } else {
+            ofstr << "object " << classSource.classname << " {\n";
+        }
 
         if (!classSource.public_members.empty()) {
             ofstr << "__public members__\n" << std::endl;
@@ -45,9 +67,6 @@ namespace PUMLE {
         for (auto& inner_class : classSource.inner_classes) {
             ofstr << classSource.classname << " +-- " << inner_class << '\n';
         }
-
-        ofstr << "@enduml\n";
-        ofstr << std::flush;
     }
     std::string Writer::ComposeFileName(const std::string& initialName) {
         return "test.puml";
