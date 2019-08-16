@@ -5,7 +5,10 @@
 #ifndef PLANTUMLEXTRACTOR_HELPER_HPP
 #define PLANTUMLEXTRACTOR_HELPER_HPP
 
-#include <vector>
-
+namespace PUMLE {
+    enum class language {
+        kotlin
+    };
+}
 
 #endif //PLANTUMLEXTRACTOR_HELPER_HPP
